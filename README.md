@@ -10,7 +10,7 @@
 
 MNIST（Modified National Institute of Standards and Technology）是一个用于手写数字识别的标准数据集，由 0 到 9 共 10 种类别的 28×28 灰度图像组成。该数据集包含 60,000 张训练图像和 10,000 张测试图像，广泛用于机器学习和深度学习的研究。由于其数据集规模适中且预处理简单，MNIST 经常被用于测试图像分类算法，是深度学习入门的理想数据集。
 
-### **PyTorch **
+### **PyTorch**
 
 PyTorch 是一个开源的深度学习框架，由 Facebook 开发，采用动态图计算机制，提供灵活的张量计算和自动求导功能，使其在深度学习任务中易于调试和优化。此外，PyTorch 具有强大的 GPU 加速能力，支持分布式训练，并且与 Python 生态系统兼容，便于与 NumPy、Scikit-learn 等库集成。
 
