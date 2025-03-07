@@ -6,6 +6,16 @@
 
 请自行搜索深度学习的相关数学原理，例如卷积、归一化。推荐移步 [【3Blue1Brown】深度学习之神经网络的结构 Part 1 ver 2.0](https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.1387.homepage.video_card.click&vd_source=09d1bf2cbd84e8b3aa3357a436352b3a)
 
+Usage:
+
+```
+        pip install torch torchvision torchaudio (if you don't have CUDA support)
+            (Well, if you have CUDA support, please visit https://developer.nvidia.com/cuda-toolkit )
+        pip install matplotlib numpy
+        python model.py
+```
+
+    
 ### **MNIST 数据集**
 
 MNIST（Modified National Institute of Standards and Technology）是一个用于手写数字识别的标准数据集，由 0 到 9 共 10 种类别的 28×28 灰度图像组成。该数据集包含 60,000 张训练图像和 10,000 张测试图像，广泛用于机器学习和深度学习的研究。由于其数据集规模适中且预处理简单，MNIST 经常被用于测试图像分类算法，是深度学习入门的理想数据集。
