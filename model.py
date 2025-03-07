@@ -131,7 +131,7 @@ class Model:
             self.tester.evaluate(epoch)
     '''
     Draw a loss-iterations chart using matplotlib package.
-    You can check your chart at MINSTdemo directory.
+    You can check your chart at MINST-intro directory.
     
     '''
     def plot_loss(self):
