@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from torch.autograd import Variable
 from torchvision import datasets, transforms
 '''
-This is a very very simple DNN model based on MNIST dataset, which is specialized
+This is a very very simple CNN model based on MNIST dataset, which is specialized
 for recognizing written numbers. You can have a glimpse of what an artificial 
 agent is, and how researchers train model.
 
@@ -35,7 +35,7 @@ test_data = torchvision.datasets.MNIST(
            any class or function
 '''
 batch_size = 128
-epochs = 5
+epochs = 16
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 '''
@@ -45,10 +45,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 '''
 
 class Net(torch.nn.Module):
-    '''
-    Question: how many hidden layers are there in the Net? What do they do?
-    
-    '''
     def __init__(self):
         super(Net, self).__init__()
         self.dense = torch.nn.Sequential(
@@ -56,13 +52,20 @@ class Net(torch.nn.Module):
             torch.nn.BatchNorm1d(512),  # resist overfitting
             torch.nn.ReLU(),            # what if we use other activation func such as Sigmoid() ?
             torch.nn.Linear(512, 10),
-            torch.nn.ReLU()
         )
 
     def forward(self, x): # forward propagation
         x = x.view(-1, 784)
         x = self.dense(x)
-        return torch.nn.functional.log_softmax(x, dim=1)
+        return x
+
+
+
+
+
+
+
+
 
 class Tester:
     '''
@@ -100,6 +103,15 @@ class Model:
     '''
     def __init__(self):
         self.model = Net().to(device)
+        '''
+        self.model = torch.nn.Sequential(
+            torch.nn.Flatten(),
+            torch.nn.Linear(784, 512),
+            torch.nn.BatchNorm1d(512),
+            torch.nn.ReLU(),
+            torch.nn.Linear(512, 10)
+        ).to(device)
+        '''
         self.optimizer = torch.optim.Adam(self.model.parameters())  # Adam is a built-in optimizer of pytorch
         self.loss_func = torch.nn.CrossEntropyLoss()                # why is an "entropy" here?
         self.train_loader = Data.DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
@@ -117,15 +129,15 @@ class Model:
                 inputs, labels = inputs.to(device), labels.to(device)
 
                 self.optimizer.zero_grad() # 1
-                outputs = self.model(inputs)
-                loss = self.loss_func(outputs, labels)
-                loss.backward()            # 2
-                self.optimizer.step()      # 3 : three common statement for optimizing and back propagation
+                outputs = self.model(inputs) #2
+                loss = self.loss_func(outputs, labels) #3
+                loss.backward()            # 4
+                self.optimizer.step()      # 5 : five common statement for optimizing and back propagation
 
                 sum_loss += loss.item()
                 if (i + 1) % 100 == 0:
-                    print(f'epoch={epoch + 1}, batch={i + 1} loss: {sum_loss / 100:.4f}')
-                    self.loss_values.append(sum_loss / 100)
+                    print(f'epoch={epoch + 1}, batch={i + 1} loss: {sum_loss:.4f}') #training loss
+                    self.loss_values.append(sum_loss)
                     sum_loss = 0.0
 
             self.tester.evaluate(epoch)
